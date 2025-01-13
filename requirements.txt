@@ -1,0 +1,15 @@
+ipykernel
+pandas
+plotly.express
+nbformat
+seaborn
+scikit-learn
+imblearn
+numpy
+lxml
+tensorflow-macos
+bs4
+flask
+streamlit
+openpyxl
+xgboost
