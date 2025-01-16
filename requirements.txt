@@ -13,3 +13,4 @@ flask
 streamlit
 openpyxl
 xgboost
+-e .
