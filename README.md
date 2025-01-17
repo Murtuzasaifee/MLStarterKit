@@ -1,5 +1,5 @@
 # MLStarterKit
-Everything you need to start your ML journey.
+A blueprint for building machine learning solutions. Everything you need to start your ML journey.
 
 ## Project Blueprint for Machine Learning Pipelines 🚀
 
