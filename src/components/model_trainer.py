@@ -3,7 +3,7 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object, evaluate_models, load_hyperparameters
-
+import yaml
 from dataclasses import dataclass
 
 from catboost import CatBoostRegressor
@@ -22,12 +22,21 @@ from catboost import CatBoostRegressor
 
 @dataclass
 class ModelTrainerConfig:
-    trained_model_file_path = os.path.join("artifacts","model.pkl")
+    trained_model_file_path: str
     
     
 class ModelTrainer:
-    def __init__(self):
-        self.model_trainer_config=ModelTrainerConfig()
+    
+    def __init__(self, config_path="src/config/model_trainer.yaml"):
+        self.config = self._load_config(config_path)
+
+    def _load_config(self, config_path):
+        try:
+            with open(config_path, 'r') as file:
+                config = yaml.safe_load(file)
+            return ModelTrainerConfig(**config["ModelTrainerConfig"])
+        except Exception as e:
+            raise CustomException(f"Error loading transformation config: {config_path}", sys) from e
         
     def initiate_model_trainer(self, train_array, test_array, preprocess_path):
         
@@ -43,8 +52,8 @@ class ModelTrainer:
                 )
             
             models = {
-                "Random Forest": RandomForestRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
+                "Random Forest": RandomForestRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
                 "XGBRegressor": XGBRegressor(),
@@ -75,7 +84,7 @@ class ModelTrainer:
             
             print(f'Best model found is: {best_model_name}')
             
-            save_object(self.model_trainer_config.trained_model_file_path, best_model)
+            save_object(self.config.trained_model_file_path, best_model)
             
             logging.info('Best model pckl file saved')
             

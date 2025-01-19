@@ -10,21 +10,29 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
+import yaml
 
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.join('artifacts',"preprocessor.pkl")
+    preprocessor_obj_file_path: str
+    
 
 class DataTranformation:
-    def __init__(self):
-        self.data_transformation_config = DataTransformationConfig()
+    
+    def __init__(self, config_path="src/config/data_transformation.yaml"):
+        self.config = self._load_config(config_path)
+
+    def _load_config(self, config_path):
+        try:
+            with open(config_path, 'r') as file:
+                config = yaml.safe_load(file)
+            return DataTransformationConfig(**config["DataTransformationConfig"])
+        except Exception as e:
+            raise CustomException(f"Error loading transformation config: {config_path}", sys) from e
+        
         
     def get_data_transformer_obj(self,numerical_columns,categorical_columns):
-        
-        '''
-        This is responsible for the data transformation
-        '''
         
         try:
            
@@ -102,7 +110,7 @@ class DataTranformation:
             logging.info('Preprocessing completed')
             
             utils.save_object(
-                file_path = self.data_transformation_config.preprocessor_obj_file_path,
+                file_path = self.config.preprocessor_obj_file_path,
                 obj = preprocessor
             )
             
@@ -111,7 +119,7 @@ class DataTranformation:
             return (
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path
+                self.config.preprocessor_obj_file_path
             )
             
         except Exception as e:
