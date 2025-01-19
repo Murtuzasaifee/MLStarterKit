@@ -2,7 +2,7 @@ import os
 import sys
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object, evaluate_model
+from src.utils import save_object, evaluate_models, load_hyperparameters
 
 from dataclasses import dataclass
 
@@ -43,16 +43,19 @@ class ModelTrainer:
                 )
             
             models = {
-                "Linear Regression": LinearRegression(),
-                "K-Neighbors Regressor": KNeighborsRegressor(),
+                "Random Forest": RandomForestRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
-                "Random Forest Regressor": RandomForestRegressor(),
-                "XGBRegressor": XGBRegressor(), 
+                "Gradient Boosting": GradientBoostingRegressor(),
+                "Linear Regression": LinearRegression(),
+                "XGBRegressor": XGBRegressor(),
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
-                "AdaBoost Regressor": AdaBoostRegressor()
-                } 
+                "AdaBoost Regressor": AdaBoostRegressor(),
+            }
             
-            model_report:dict = evaluate_model(X_train=X_train,y_train=y_train, X_test=X_test,y_test=y_test,models=models)
+            hyperparameters=load_hyperparameters('src/config/hyperparameters.yaml')
+            print(f"Hyper Parameters are : {hyperparameters}")
+            
+            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train, X_test=X_test,y_test=y_test,models=models,params=hyperparameters)
             
             print(f'Model Report :{model_report}')
             
