@@ -14,4 +14,5 @@ streamlit
 openpyxl
 xgboost
 catboost
+dill
 # -e .
