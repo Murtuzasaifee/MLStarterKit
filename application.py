@@ -92,3 +92,7 @@ if st.sidebar.button("Predict"):
     # Display results
     st.write("Prediction Result:")
     st.success(results[0])
+    
+if __name__ == "__main__":
+    st.runtime.legacy_caching.clear_cache()  # Clear cache if needed
+    st.run()  # Or use st.beta_set_cli_flag('server.port', '8000')
