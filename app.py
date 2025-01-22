@@ -8,7 +8,7 @@ def main():
     st.set_page_config(page_title="Student Score Prediction App", layout="centered")
 
     # Title of the app
-    st.title("Prediction App")
+    st.title("Student Math Score Prediction App")
 
     # Sidebar for navigation
     st.sidebar.header("User Input Features")
