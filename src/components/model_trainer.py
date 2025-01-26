@@ -19,26 +19,14 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
-
-@dataclass
-class ModelTrainerConfig:
-    trained_model_file_path: str
     
     
 class ModelTrainer:
     
-    def __init__(self, config_path="src/config/model_trainer.yaml"):
-        self.config = self._load_config(config_path)
+    def __init__(self):
+        pass
 
-    def _load_config(self, config_path):
-        try:
-            with open(config_path, 'r') as file:
-                config = yaml.safe_load(file)
-            return ModelTrainerConfig(**config["ModelTrainerConfig"])
-        except Exception as e:
-            raise CustomException(f"Error loading transformation config: {config_path}", sys) from e
-        
-    def initiate_model_trainer(self, train_array, test_array, preprocess_path):
+    def initiate_model_trainer(self, train_array, test_array,trained_model_file_path, hyperparameters):
         
         try:
             
@@ -52,16 +40,16 @@ class ModelTrainer:
                 )
             
             models = {
-                "Decision Tree": DecisionTreeRegressor(),
-                "Random Forest": RandomForestRegressor(),
-                "Gradient Boosting": GradientBoostingRegressor(),
-                "Linear Regression": LinearRegression(),
-                "XGBRegressor": XGBRegressor(),
-                "CatBoosting Regressor": CatBoostRegressor(verbose=False),
-                "AdaBoost Regressor": AdaBoostRegressor(),
+                "decision_tree": DecisionTreeRegressor(),
+                "random_forest": RandomForestRegressor(),
+                "gradient_boosting": GradientBoostingRegressor(),
+                "linear_regression": LinearRegression(),
+                "xgb_regressor": XGBRegressor(),
+                "cat_boosting_regressor": CatBoostRegressor(verbose=False),
+                "ada_boost_regressor": AdaBoostRegressor(),
             }
             
-            hyperparameters=load_hyperparameters('src/config/hyperparameters.yaml')
+            # hyperparameters=load_hyperparameters('src/config/hyperparameters.yaml')
             print(f"Hyper Parameters are : {hyperparameters}")
             
             model_report:dict = evaluate_models(X_train=X_train,y_train=y_train, X_test=X_test,y_test=y_test,models=models,params=hyperparameters)
@@ -84,7 +72,7 @@ class ModelTrainer:
             
             print(f'Best model found is: {best_model_name}')
             
-            save_object(self.config.trained_model_file_path, best_model)
+            save_object(trained_model_file_path, best_model)
             
             logging.info('Best model pckl file saved')
             

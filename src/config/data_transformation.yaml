@@ -1,2 +1,0 @@
-DataTransformationConfig:
-  preprocessor_obj_file_path: "artifacts/preprocessor.pkl"

@@ -1,2 +1,0 @@
-ModelTrainerConfig:
-  trained_model_file_path: "artifacts/model.pkl"

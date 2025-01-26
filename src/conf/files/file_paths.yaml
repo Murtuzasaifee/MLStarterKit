@@ -1,0 +1,11 @@
+inputs:
+  train_data_path: ${hydra:runtime.cwd}/artifacts/train.csv
+  test_data_path: ${hydra:runtime.cwd}/artifacts/test.csv
+  raw_data_path: ${hydra:runtime.cwd}/artifacts/data.csv
+  input_data_path: ${hydra:runtime.cwd}/src/notebook/data/stud.csv
+  test_size: 0.2
+  random_state: 42
+
+outputs:
+  preprocessor_obj_file_path: "artifacts/preprocessor.pkl"
+  trained_model_file_path: "artifacts/model.pkl"
