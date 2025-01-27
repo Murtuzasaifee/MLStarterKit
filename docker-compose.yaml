@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: student_performance_indicator
+    working_dir: /app
+    ports:
+      - "8501:8501"  # Expose port 8501 for the Streamlit app
+    volumes:
+      - .:/app  # Mount the current directory to /app in the container
+    command: streamlit run app.py --server.port 8501

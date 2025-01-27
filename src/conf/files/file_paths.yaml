@@ -7,5 +7,5 @@ inputs:
   random_state: 42
 
 outputs:
-  preprocessor_obj_file_path: "artifacts/preprocessor.pkl"
-  trained_model_file_path: "artifacts/model.pkl"
+  preprocessor_obj_file_path: ${hydra:runtime.cwd}/artifacts/preprocessor.pkl
+  trained_model_file_path:  ${hydra:runtime.cwd}/artifacts/model.pkl

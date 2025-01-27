@@ -2,8 +2,15 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
+from src.dto.config import MLConfig 
+from hydra.core.config_store import ConfigStore
+import hydra
 
-def main():
+cs = ConfigStore.instance()
+cs.store(name="ml_config", node=MLConfig)
+
+@hydra.main(config_path="src/conf", config_name="config")
+def main(cfg: MLConfig) -> None:
     # Streamlit app setup
     st.set_page_config(page_title="Student Score Prediction App", layout="centered")
 
@@ -88,7 +95,7 @@ def main():
 
         # Predict
         predict_pipeline = PredictPipeline()
-        results = predict_pipeline.predict(pred_df)
+        results = predict_pipeline.predict(pred_df, cfg.files.outputs.trained_model_file_path, cfg.files.outputs.preprocessor_obj_file_path)
 
         # Display results
         st.write("Prediction Result:")
