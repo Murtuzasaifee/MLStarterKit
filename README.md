@@ -1,25 +1,46 @@
-# MLStarterKit
-A blueprint for building machine learning solutions. Everything you need to start your ML journey.
+# MLStarterKit 🚀
 
-## Project Blueprint for Machine Learning Pipelines 🚀
+A machine learning project template with configuration management via Hydra, scalable pipelines, and production-ready setup including AWS Elastic Beanstalk deployment.
 
-A comprehensive blueprint to build, train, and deploy machine learning projects seamlessly. This repository provides a modular and scalable approach to creating machine learning pipelines, enabling anyone to kickstart their ML journey with ease.
 
-## Key Features
-- **Train Pipeline**: Pre-defined modules for data preprocessing, feature engineering, model training, and evaluation.
-- **Predict Pipeline**: Ready-to-use prediction pipelines with modular integration.
-- **Customizability**: Fully customizable templates for adapting to various machine learning use cases.
-- **Best Practices**: Adheres to industry-standard practices for maintainability and scalability.
-- **Plug-and-Play**: Replace or extend components as per your project requirements.
+## Features ✨
 
-## Suggested Names
-1. **ML Builder**  
-2. **Pipeline Forge**  
-3. **BlueprintML**  
-4. **AI Assembly Kit**  
-5. **ScaffoldML**  
-6. **PipelineCraft**  
-7. **Model Maker Pro**  
-8. **The ML Workshop**  
-9. **TensorBlueprint**  
-10. **AI Architect**  
+- **AWS Elastic Beanstalk Ready**: Pre-configured deployment files (Procfile, nginx, EB extensions)
+- **Hydra Configuration**: Structured YAML configs for easy experiment management
+- **Modular Pipelines**: Separate training & prediction pipelines
+- **Template Structure**: Organized components for rapid development
+
+## Installation 💻
+
+```bash
+# Clone repo
+git clone [your-repo-url]
+cd MLStarterKit
+
+# Create virtual environment (Python 3.8+ recommended)
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate  # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+## Project Structure 🗂️
+├── conf/               # Hydra configuration files
+│   ├── config.yaml     # Main configuration
+│   ├── model/          # Model hyperparameters
+│   └── data/           # Data paths & preprocessing
+├── components/         # Reusable pipeline components
+├── pipeline/           # Core workflows
+│   ├── train_pipeline.py
+│   └── predict_pipeline.py
+├── dto/                # Data transfer objects
+├── src/                # Source utilities
+│   ├── logger.py       # Custom logging
+│   ├── exception.py    # Error handling
+│   └── utils.py        # Helper functions
+├── artifacts/          # Saved models & preprocessors
+├── notebook/           # Exploration notebooks
+├── app.py              # Flask application
+├── requirements.txt    # Dependencies
+└── Procfile            # Deployment configuration
